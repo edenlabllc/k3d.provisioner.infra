@@ -47,6 +47,6 @@ inventory:
 
 ## Development
 
-For development, you need to use one of the project's repositories and change the code 
-in the directory `.PROJECT/clusters/k3d.provisioner.infra-<version>/k3d.yaml`.
-After developing and refactoring code, copy change files to this repository in feature branch and create Pull Request.
+For development, navigate to the local `.PROJECT/clusters/k3d.provisioner.infra-<version>/k3d.yaml` directory of a project repository, 
+then perform the changes directly in the files and test them. 
+Finally, copy the changed files to a new feature branch of this repository and create a pull request (PR).
