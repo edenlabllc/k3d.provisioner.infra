@@ -31,7 +31,7 @@ Each merge in the master branch adds a new [SemVer2](https://semver.org/) tag an
 ## Additional information
 
 This configuration of K3D manifest can only be launched from the project repository via [RMK](https://github.com/edenlabllc/rmk),
-because the entire input set of variables is formed by the RMK at the moment 
+because the entire input set of variables is formed by RMK at the moment 
 the commands are launched: `rmk cluster k3d`.
 RMK also keeps track of which version of the release of K3D config file the project repository will use.
 The version of config file artifact is described in the project file of each 
