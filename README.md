@@ -34,7 +34,7 @@ This configuration of K3D manifest can only be launched from the project reposit
 because the entire input set of variables is formed by RMK at the moment 
 the commands are launched: `rmk cluster k3d`.
 RMK also keeps track of which version of the release of K3D config file the project repository will use.
-The version of config file artifact is described in the project file of each 
+The version of config file artifact is described in the [project.yaml](https://github.com/edenlabllc/rmk/blob/develop/docs/configuration/project-management/preparation-of-project-repository.md#projectyaml) file of each 
 project repository in the section:
 
 ```yaml
