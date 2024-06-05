@@ -4,7 +4,7 @@
 [![Software License](https://img.shields.io/github/license/edenlabllc/k3d.provisioner.infra.svg?style=for-the-badge)](LICENSE)
 [![Powered By: Edenlab](https://img.shields.io/badge/powered%20by-edenlab-8A2BE2.svg?style=for-the-badge)](https://edenlab.io)
 
-This repository provides [K3D](https://k3d.io) config file. 
+This repository provides a [K3D](https://k3d.io) config file. 
 Mainly it is designed to be managed by administrators, DevOps engineers, SREs.
 
 ## Contents
@@ -16,7 +16,7 @@ Mainly it is designed to be managed by administrators, DevOps engineers, SREs.
 
 ## Requirements
 
-`K3D` = version is specified in the [project.yaml](https://github.com/edenlabllc/rmk/blob/develop/docs/configuration/project-management/preparation-of-project-repository.md#projectyaml) file 
+`k3d` = version is specified in the [project.yaml](https://github.com/edenlabllc/rmk/blob/develop/docs/configuration/project-management/preparation-of-project-repository.md#projectyaml) file 
 of each project of the repository in the `tools` section.
 
 ## Git workflow
