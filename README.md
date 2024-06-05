@@ -1,5 +1,9 @@
 # k3d.provisioner.infra
 
+[![Release](https://img.shields.io/github/v/release/edenlabllc/k3d.provisioner.infra.svg?style=for-the-badge)](https://github.com/edenlabllc/aws.provisioner.infra/releases/latest)
+[![Software License](https://img.shields.io/github/license/edenlabllc/k3d.provisioner.infra.svg?style=for-the-badge)](LICENSE)
+[![Powered By: Edenlab](https://img.shields.io/badge/powered%20by-edenlab-8A2BE2.svg?style=for-the-badge)](https://edenlab.io)
+
 This repository provides [K3D](https://k3d.io) config file. 
 Mainly it is designed to be managed by administrators, DevOps engineers, SREs.
 
