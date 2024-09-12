@@ -10,7 +10,7 @@ kubeAPI: # same as `--api-port myhost.my.domain:6445` (where the name would reso
 #  host: "myhost.my.domain" # important for the `server` setting in the kubeconfig
   hostIP: "0.0.0.0" # where the Kubernetes API will be listening on
   hostPort: "6445" # where the Kubernetes API listening port will be mapped to on your host system
-image: rancher/k3s:v1.27.9-k3s1 # same as `--image rancher/k3s:v1.23.8-k3s1`
+image: rancher/k3s:v1.29.8-k3s1 # same as `--image rancher/k3s:v1.29.8-k3s1`
 #network: my-custom-net # same as `--network my-custom-net`
 #subnet: "172.28.0.0/16" # same as `--subnet 172.28.0.0/16`
 #token: superSecretToken # same as `--token superSecretToken`
@@ -19,25 +19,41 @@ volumes: # repeatable flags are represented as YAML lists
   - volume: ${K3D_VOLUME_HOST_PATH}:/mnt/k3d/node # same as `--volume '/my/host/path:/path/in/node@server:0;agent:*'`
     nodeFilters:
       - all
-  - volume: ${K3D_REGISTRY_HOST_PATH}:/etc/rancher/k3s # same as `--volume '/my/host/path:/path/in/node@server:0;agent:*'`
-    nodeFilters:
-      - all
+#  - volume: ${K3D_REGISTRY_HOST_PATH}:/etc/rancher/k3s # same as `--volume '/my/host/path:/path/in/node@server:0;agent:*'`
+#    nodeFilters:
+#      - all
 ports:
   - port: 8080:80 # same as `--port '8080:80@loadbalancer'`
     nodeFilters:
       - loadbalancer
-  - port: 8443:443 # same as `--port '8080:80@loadbalancer'`
+  - port: 8443:443 # same as `--port '8443:443@loadbalancer'`
+    nodeFilters:
+      - loadbalancer
+  - port: 9111:9000 # same as `--port '9111:9000@loadbalancer'`
     nodeFilters:
       - loadbalancer
 #env:
 #  - envVar: bar=baz # same as `--env 'bar=baz@server:0'`
 #    nodeFilters:
 #      - server:0
-registries: # define how registries should be created or used
-  create: # creates a default registry to be used with the cluster; same as `--registry-create registry.localhost`
-    name: registry.localhost
-    host: "0.0.0.0"
-    hostPort: "5001"
+files:
+  - description: 'Source: Relative, Destination: Absolute path, Node: Servers only'
+    source: helm-chart-config/traefik-config.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/traefik-config.yaml
+    nodeFilters:
+      - server:0
+#  - description: 'Source: Embedded, Destination: Magic shortcut path'
+#    source: |
+#      apiVersion: v1
+#      kind: Namespace
+#      metadata:
+#        name: foo
+#    destination: k3s-manifests-custom/foo.yaml # Resolved to /var/lib/rancher/k3s/server/manifests/custom/foo.yaml
+#registries: # define how registries should be created or used
+#  create: # creates a default registry to be used with the cluster; same as `--registry-create registry.localhost`
+#    name: registry.localhost
+#    host: "0.0.0.0"
+#    hostPort: "5001"
 #    proxy: # omit this to have a "normal" registry, set this to create a registry proxy (pull-through cache)
 #      remoteURL: https://registry-1.docker.io # mirror the DockerHub registry
 #      username: "" # unauthenticated
@@ -47,16 +63,16 @@ registries: # define how registries should be created or used
 #  use:
 #    - k3d-myotherregistry:5000 # some other k3d-managed registry; same as `--registry-use 'k3d-myotherregistry:5000'`
 # Don't overwrite the "config" section. RMK configures it automatically.
-  config: | # define contents of the `registries.yaml` file (or reference a file); same as `--registry-config /path/to/config.yaml`
-    mirrors:
-      "288509344804.dkr.ecr.eu-north-1.amazonaws.com":
-        endpoint:
-          - https://288509344804.dkr.ecr.eu-north-1.amazonaws.com
-    configs:
-      288509344804.dkr.ecr.eu-north-1.amazonaws.com:
-        auth:
-          username: ${K3D_AWS_ECR_USER}
-          password: ${K3D_AWS_ECR_PASSWORD}
+#  config: | # define contents of the `registries.yaml` file (or reference a file); same as `--registry-config /path/to/config.yaml`
+#    mirrors:
+#      "288509344804.dkr.ecr.eu-north-1.amazonaws.com":
+#        endpoint:
+#          - https://288509344804.dkr.ecr.eu-north-1.amazonaws.com
+#    configs:
+#      288509344804.dkr.ecr.eu-north-1.amazonaws.com:
+#        auth:
+#          username: ${K3D_AWS_ECR_USER}
+#          password: ${K3D_AWS_ECR_PASSWORD}
 #hostAliases: # /etc/hosts style entries to be injected into /etc/hosts in the node containers and in the NodeHosts section in CoreDNS
 #  - ip: 1.2.3.4
 #    hostnames:
@@ -96,3 +112,7 @@ options:
 #      - label: bar=baz # same as `--runtime-label 'bar=baz@agent:1'` -> this results in a runtime (docker) container label
 #        nodeFilters:
 #          - agent:1
+#    ulimits:
+#      - name: nofile
+#        soft: 65535
+#        hard: 65535
