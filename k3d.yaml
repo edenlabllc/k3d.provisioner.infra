@@ -29,7 +29,7 @@ ports:
   - port: 8443:443 # same as `--port '8443:443@loadbalancer'`
     nodeFilters:
       - loadbalancer
-  - port: 9111:9000 # same as `--port '8080:80@loadbalancer'`
+  - port: 9111:9000 # same as `--port '9111:9000@loadbalancer'`
     nodeFilters:
       - loadbalancer
 #env:
